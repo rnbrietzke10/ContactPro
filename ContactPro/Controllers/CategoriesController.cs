@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using ContactPro.Data;
 using ContactPro.Models;
 
@@ -20,14 +22,16 @@ namespace ContactPro.Controllers
         }
 
         // GET: Categories
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Categories.Include(c => c.AppUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Categories/Details/5
+		[Authorize]
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categories == null)
             {
@@ -45,8 +49,9 @@ namespace ContactPro.Controllers
             return View(category);
         }
 
-        // GET: Categories/Create
-        public IActionResult Create()
+		// GET: Categories/Create
+		[Authorize]
+		public IActionResult Create()
         {
             ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
@@ -69,8 +74,9 @@ namespace ContactPro.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+		// GET: Categories/Edit/5
+		[Authorize]
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categories == null)
             {
@@ -122,8 +128,9 @@ namespace ContactPro.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+		// GET: Categories/Delete/5
+		[Authorize]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
             {
