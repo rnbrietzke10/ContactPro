@@ -110,6 +110,13 @@ namespace ContactPro.Controllers
             return View(contact);
         }
 
+
+        [Authorize]
+        public IActionResult EmailContact(int contactId)
+        {
+            return View();
+        }
+
 		// GET: Contacts/Create
 		[Authorize]
 		public async Task<IActionResult> Create()
