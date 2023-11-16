@@ -122,6 +122,9 @@ namespace ContactPro.Controllers
             {
                 try
                 {
+                    string appUserId = _userManager.GetUserId(User);
+                    category.AppUserId = appUserId;
+
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
@@ -138,7 +141,7 @@ namespace ContactPro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", category.AppUserId);
+          
             return View(category);
         }
 
